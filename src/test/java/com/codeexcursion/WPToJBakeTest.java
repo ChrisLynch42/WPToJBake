@@ -43,4 +43,12 @@ public class WPToJBakeTest {
     Assert.assertNotNull("Document was null!",document);
   }
 
+  @Test 
+  public void testGetItems() {
+    Document document = WPToJBake.getDocument(testFile);
+    Assert.assertNotNull("Document was null!",document);
+    WPToJBake.printFiles(null);
+  }
+  
+  
 }

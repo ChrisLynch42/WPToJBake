@@ -36,9 +36,6 @@ public class WPToJBake {
       return;
     }
 
-    Element rootNode = document.getRootElement();
-    
-    Element channel = rootNode.getChild("channel");
 
   }
 
