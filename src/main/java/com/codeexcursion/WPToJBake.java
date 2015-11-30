@@ -30,16 +30,43 @@ public class WPToJBake {
       }
     }
 
+    WPToJBake wpToJBake = new WPToJBake();
+
+    wpToJBake.convertFile(inputFile);
+
+  }
+
+  public void convertFile(File inputFile) {
+    String errors = null;
     Document document = getDocument(inputFile);
 
     if (document == null) {
       return;
     }
 
+    
+    List<Element> items = getItems();
+    printFiles(channel);
 
   }
 
-  public static Document getDocument(File inputFile) {
+  public List<Element> getItems(Document document) {
+    List<Element> items = null;
+
+    Element rss = document.getRootElement();
+
+    if (rss == null) {
+      System.out.println("Failed to retrieve rss node.");
+    } else {
+      Element channel = rss.getChild("channel");
+      if (channel == null) {
+        System.out.println("Failed to retrieve channel node.");
+      }
+    }
+    return items;
+  }
+
+  public Document getDocument(File inputFile) {
     SAXBuilder jdomBuilder = new SAXBuilder();
     Document jdomDocument = null;
     try {
@@ -53,10 +80,10 @@ public class WPToJBake {
     }
     return jdomDocument;
   }
-  
-  public static void printFiles(Element rootNode) {
+
+  public void printFiles(Element rootNode) {
     List<Element> items = rootNode.getChildren("item");
-    for(Element item : items) {
+    for (Element item : items) {
       System.out.println(item.getChild("title").getText());
     }
   }
