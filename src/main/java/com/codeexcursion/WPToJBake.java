@@ -32,11 +32,11 @@ public class WPToJBake {
 
     WPToJBake wpToJBake = new WPToJBake();
 
-    wpToJBake.convertFile(inputFile);
+    wpToJBake.wpXMLToFiles(inputFile);
 
   }
 
-  public void convertFile(File inputFile) {
+  public void wpXMLToFiles(File inputFile) {
     String errors = null;
     Document document = getDocument(inputFile);
 
@@ -44,9 +44,10 @@ public class WPToJBake {
       return;
     }
 
-    
-    List<Element> items = getItems();
-    printFiles(channel);
+    List<Element> items = getItems(document);
+    System.out.print("items.size():  ");
+    System.out.println(items);
+    printFiles(items);
 
   }
 
@@ -61,6 +62,8 @@ public class WPToJBake {
       Element channel = rss.getChild("channel");
       if (channel == null) {
         System.out.println("Failed to retrieve channel node.");
+      } else {
+        items = channel.getChildren("item");
       }
     }
     return items;
@@ -81,10 +84,11 @@ public class WPToJBake {
     return jdomDocument;
   }
 
-  public void printFiles(Element rootNode) {
-    List<Element> items = rootNode.getChildren("item");
-    for (Element item : items) {
-      System.out.println(item.getChild("title").getText());
+  public void printFiles(List<Element> items) {
+    if (items != null) {
+      for (Element item : items) {
+        System.out.println(item.getChild("title").getText());
+      }
     }
   }
 
