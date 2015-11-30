@@ -45,23 +45,8 @@ public class WPToJBakeTest {
   }
 
   @Test 
-  public void testGetItems() {
-    Document document = converter.getDocument(testFile);
-    Assert.assertNotNull("Document was null!",document);
-
-    
-    
-    Element rootNode = document.getRootElement();
-    Assert.assertNotNull("Root node was null!", rootNode);
-    
-    System.out.print("root node:  ");
-    System.out.println(rootNode.getName());
-    
-    
-    System.out.print("children count:  ");
-    System.out.println(rootNode.getChildren("item").size());
-    
-    converter.printFiles(rootNode);
+  public void testWPXMLToFiles() {
+    converter.wpXMLToFiles(testFile);    
   }
   
   
