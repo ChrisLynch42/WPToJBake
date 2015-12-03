@@ -7,8 +7,11 @@ package com.codeexcursion;
 
 /**
  *
- * @author chris
+ * @author lynchcs
  */
-public class Post {
+public class DocumentTypes {
+  public static final String ATTACHMENT = "attachment";
+  public static final String PAGE = "page";
+  public static final String POST = "post";
   
 }

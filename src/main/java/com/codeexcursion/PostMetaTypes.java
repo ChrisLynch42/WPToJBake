@@ -7,8 +7,11 @@ package com.codeexcursion;
 
 /**
  *
- * @author chris
+ * @author lynchcs
  */
-public class Attachment {
+public class PostMetaTypes {
+  
+  public static final String ATTACHED_FILE = "_wp_attached_file";
+  
   
 }

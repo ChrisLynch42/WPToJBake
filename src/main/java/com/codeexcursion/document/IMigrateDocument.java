@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.codeexcursion;
+package com.codeexcursion.document;
 
 /**
  *
- * @author chris
+ * @author lynchcs
  */
-public class Page {
+public interface IMigrateDocument {
+  
+  public void transfer();
   
 }
