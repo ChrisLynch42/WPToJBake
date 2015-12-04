@@ -13,7 +13,8 @@ import org.jdom2.input.SAXBuilder;
  *
  */
 public class WPToJBake {
-  public final static String LIST_OF_ITEMS = "channel";
+  public final static String CHANNEL = "channel";
+  public final static String ITEM = "item";
 
   public static void main(String[] args) {
     
@@ -61,7 +62,7 @@ public class WPToJBake {
     if (rss == null) {
       System.out.println("Failed to retrieve rss node.");
     } else {
-      Element channel = rss.getChild(LIST_OF_ITEMS);
+      Element channel = rss.getChild(CHANNEL);
       if (channel == null) {
         System.out.println("Failed to retrieve channel node.");
       } else {
