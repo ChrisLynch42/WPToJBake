@@ -18,20 +18,18 @@ import javax.imageio.ImageIO;
  *
  * @author lynchcs
  */
-public class MigrateZipDocument implements IMigrateDocument {
+public class MigrateCompressedDocument implements IMigrateDocument {
 
   private URL url;
   private File destination;
   private String fileType;
   private BufferedImage image;
 
-  public MigrateZipDocument(
+  public MigrateCompressedDocument(
           URL url,
-          File destination,
-          String fileType) {
+          File destination) {
     this.url = url;
     this.destination = destination;
-    this.fileType = fileType;
   }
 
   public void transfer() {

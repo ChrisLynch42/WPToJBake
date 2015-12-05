@@ -59,22 +59,22 @@ public class PathCommon {
     Assert.assertNotNull("Wordpress namespace is null.", wordpressNamespace);
     Assert.assertEquals("Wordpress namespace is null.", "wp" , wordpressNamespace.getPrefix());
    
-    List<Element> channels = rss.getChildren(WPToJBake.CHANNEL);
+    List<Element> channels = rss.getChildren(ConversionManager.CHANNEL);
     Assert.assertNotNull("List of channels was null", channels);
     
     Element channel = channels.get(0);
     Assert.assertNotNull("Channel was null", channel);
     
-    List<Element> listOfItems = channel.getChildren(WPToJBake.ITEM);
+    List<Element> listOfItems = channel.getChildren(ConversionManager.ITEM);
     
     
     
     Optional<Element> firstItem = listOfItems.stream().findFirst();
     Assert.assertTrue("Item element is null!", firstItem.isPresent());    
-    attachmentItem = new Item(firstItem.get());
+    attachmentItem = new Item(firstItem.get(), wordpressNamespace);
 /*
     System.out.println("xxxxxxxxxxxxxxxxx");
-//    System.out.println(firstItem.get().getChildText(ItemElementTypes.POST_TYPE, Namespace.getNamespace(ItemElementTypes.WORDPRESS_NAMESPACE)));
+//    System.out.println(firstItem.get().getChildText(ItemElementChildTagNames.POST_TYPE, Namespace.getNamespace(ItemElementChildTagNames.WORDPRESS_NAMESPACE)));
     System.out.println(firstItem.get().getName());
     System.out.println(firstItem.get().getChildText("post_id", wordpressNamespace));
 //    firstItem.get().getChildren().stream().forEach(child -> System.out.println(child.getName()));
@@ -83,10 +83,10 @@ public class PathCommon {
   */  
     Optional<Element> postElementItem = listOfItems.
             stream().
-            filter(item -> "246".equals(item.getChildText(ItemElementTypes.DOCUMENT_ID, wordpressNamespace))).
+            filter(item -> "246".equals(item.getChildText(ItemElementChildTagNames.DOCUMENT_ID, wordpressNamespace))).
             findFirst();
     
     Assert.assertTrue("Post element item element is null!", postElementItem.isPresent());    
-    postItem = new Item(postElementItem.get());
+    postItem = new Item(postElementItem.get(), wordpressNamespace);
   }  
 }

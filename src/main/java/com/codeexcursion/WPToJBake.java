@@ -13,8 +13,6 @@ import org.jdom2.input.SAXBuilder;
  *
  */
 public class WPToJBake {
-  public final static String CHANNEL = "channel";
-  public final static String ITEM = "item";
 
   public static void main(String[] args) {
     
@@ -46,31 +44,17 @@ public class WPToJBake {
     if (document == null) {
       return;
     }
-
-    List<Element> items = getItems(document);
-    System.out.print("items.size():  ");
-    System.out.println(items);
-    printFiles(items);
-
-  }
-
-  public List<Element> getItems(Document document) {
-    List<Element> items = null;
-
+    
     Element rss = document.getRootElement();
-
-    if (rss == null) {
-      System.out.println("Failed to retrieve rss node.");
-    } else {
-      Element channel = rss.getChild(CHANNEL);
-      if (channel == null) {
-        System.out.println("Failed to retrieve channel node.");
-      } else {
-        items = channel.getChildren("item");
-      }
+    if(rss == null) {
+      System.out.println("Root element missing!");
+      return;
     }
-    return items;
+    
+    ConversionManager conversionManager = new ConversionManager(rss);
   }
+
+
 
   public Document getDocument(File inputFile) {
     SAXBuilder jdomBuilder = new SAXBuilder();
@@ -85,14 +69,6 @@ public class WPToJBake {
       jdomDocument = null;
     }
     return jdomDocument;
-  }
-
-  public void printFiles(List<Element> items) {
-    if (items != null) {
-      for (Element item : items) {
-        System.out.println(item.getChild("title").getText());
-      }
-    }
   }
 
 }

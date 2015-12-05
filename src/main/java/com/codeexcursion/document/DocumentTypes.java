@@ -3,15 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.codeexcursion;
+package com.codeexcursion.document;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *
- * @author lynchcs
+ * @author chris
  */
 public class DocumentTypes {
   public static final String ATTACHMENT = "attachment";
-  public static final String PAGE = "page";
+  public static final List<String> COMPRESSED_EXTENSIONS = Arrays.asList("zip","gz","tar");
   public static final String POST = "post";
+  public static final String PAGE = "page";
   
 }

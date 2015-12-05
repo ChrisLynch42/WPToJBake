@@ -11,6 +11,7 @@ import java.util.StringJoiner;
 import java.util.stream.Collectors;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.jdom2.Element;
+import org.jdom2.Namespace;
 
 /**
  *
@@ -19,52 +20,59 @@ import org.jdom2.Element;
 public class Item {
 
   private Element item;
+  private Namespace namespace;
 
-  public Item(Element item) {
+  public Item(Element item, Namespace namespace) {
     this.item = item;
-    if (item == null) {
-      System.out.println("Item was null!");
-    }
+    this.namespace = namespace;
   }
 
-  public String getText(String tagName) {
+  private String getText(String tagName) {
     String returnValue = "";
     if (item != null) {
-      returnValue = item.getChildText(tagName);
+      returnValue = item.getChildText(tagName, namespace);
     }
     return returnValue;
   }
 
+  public String getAttachmentURL() {
+    return getText(ItemElementChildTagNames.ATTACHMENT_URL);
+  }
+  
+  public String getName() {
+    return getText(ItemElementChildTagNames.NAME);
+  }
+  
   public String getPostType() {
-    return getText(ItemElementTypes.POST_TYPE);
+    return getText(ItemElementChildTagNames.POST_TYPE);
   }
 
   public String getPostDate() {
-    return getText(ItemElementTypes.POST_DATE);
+    return getText(ItemElementChildTagNames.POST_DATE);
   }
 
   public String getTitle() {
-    return getText(ItemElementTypes.TITLE);
+    return getText(ItemElementChildTagNames.TITLE);
   }
 
   public String getStatus() {
-    return getText(ItemElementTypes.STATUS);
+    return getText(ItemElementChildTagNames.STATUS);
   }
   
   public String getContent() {
-    return StringEscapeUtils.unescapeHtml(getText(ItemElementTypes.CONTENT));
+    return StringEscapeUtils.unescapeHtml(getText(ItemElementChildTagNames.CONTENT));
   }  
 
   public String getAttachedFile() {
     String returnValue = "";
     if (item != null) {
-      List<Element> postMetas = item.getChildren(ItemElementTypes.POST_META);
+      List<Element> postMetas = item.getChildren(ItemElementChildTagNames.POST_META, namespace);
       if (postMetas != null) {
         returnValue = postMetas.
                 stream().
-                filter(postMeta -> PostMetaTypes.ATTACHED_FILE.equals(postMeta.getChildText(ItemElementTypes.POST_META_KEY))).
-                map(postMeta -> postMeta.getChildText(ItemElementTypes.POST_META_VALUE)).
-                findFirst().toString();
+                filter(postMeta -> PostMetaTypes.ATTACHED_FILE.equals(postMeta.getChildText(ItemElementChildTagNames.POST_META_KEY, namespace))).
+                map(postMeta -> postMeta.getChildText(ItemElementChildTagNames.POST_META_VALUE, namespace)).
+                findFirst().get();
       }
     }
     return returnValue;
@@ -73,11 +81,11 @@ public class Item {
   public List<String> getCategories() {
     List<String> categoryNames = new ArrayList();
     if (item != null) {
-      List<Element> categories = item.getChildren(ItemElementTypes.CATEGORY);
+      List<Element> categories = item.getChildren(ItemElementChildTagNames.CATEGORY);
       if (categories != null) {
         categoryNames = categories.
                 stream().
-                filter(category -> ItemElementTypes.CATEGORY.equals(category.getAttributeValue(ItemElementTypes.DOMAIN))).
+                filter(category -> ItemElementChildTagNames.CATEGORY.equals(category.getAttributeValue(ItemElementChildTagNames.DOMAIN))).
                 map(category -> category.getText()).
                 collect(Collectors.toList());
       }
@@ -88,11 +96,11 @@ public class Item {
   public List<String> getTags() {
     List<String> tagNames = new ArrayList();
     if (item != null) {
-      List<Element> categories = item.getChildren(ItemElementTypes.CATEGORY);
+      List<Element> categories = item.getChildren(ItemElementChildTagNames.CATEGORY);
       if (categories != null) {
         tagNames = categories.
                 stream().
-                filter(category -> ItemElementTypes.TAG.equals(category.getAttributeValue(ItemElementTypes.DOMAIN))).
+                filter(category -> ItemElementChildTagNames.TAG.equals(category.getAttributeValue(ItemElementChildTagNames.DOMAIN))).
                 map(category -> category.getText()).
                 collect(Collectors.toList());
       }

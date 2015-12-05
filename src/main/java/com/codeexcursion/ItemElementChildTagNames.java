@@ -11,7 +11,7 @@ import org.jdom2.Namespace;
  *
  * @author lynchcs
  */
-public class ItemElementTypes {
+public class ItemElementChildTagNames {
   
   public static final String TITLE = "title";
   public static final String STATUS = "status";
@@ -26,6 +26,7 @@ public class ItemElementTypes {
   public static final String DOMAIN = "domain";
   public static final String DOCUMENT_ID = "post_id";
   public static final String CONTENT = "content:encoded";
+  public static final String ATTACHMENT_URL = "attachment_url";
   
   
 }
