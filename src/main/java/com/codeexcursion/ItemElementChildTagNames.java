@@ -25,7 +25,7 @@ public class ItemElementChildTagNames {
   public static final String TAG = "post_tag";
   public static final String DOMAIN = "domain";
   public static final String DOCUMENT_ID = "post_id";
-  public static final String CONTENT = "content:encoded";
+  public static final String ENCODED = "encoded";
   public static final String ATTACHMENT_URL = "attachment_url";
   
   

@@ -9,6 +9,7 @@ import com.codeexcursion.document.DocumentTypes;
 import com.codeexcursion.document.IMigrateDocument;
 import com.codeexcursion.document.MigrateCompressedDocument;
 import com.codeexcursion.document.MigrateImageDocument;
+import com.codeexcursion.document.MigrateLocalTextDocument;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
@@ -23,6 +24,7 @@ public class ConversionManager {
   public final static String CHANNEL = "channel";
   public final static String ITEM = "item";
   public final static String WORDPRESS_NAMESPACE_PREFIX = "wp";
+  public final static String CONTENT_NAMESPACE_PREFIX = "content";
 
   private Element rss;
 
@@ -30,7 +32,7 @@ public class ConversionManager {
     this.rss = rss;
   }
 
-  private void convert() {
+  public void convert() {
     List<Element> itemNodes = getItems();
     if (itemNodes == null) {
       System.out.println("Failed to retrieve documents from WordPress XML Export File.");
@@ -39,7 +41,14 @@ public class ConversionManager {
 
     for (Element itemNode : itemNodes) {
       if (itemNode != null) {
-        Item item = new Item(itemNode, rss.getNamespace(WORDPRESS_NAMESPACE_PREFIX));
+        Item item = new Item(
+          itemNode, 
+          rss.getNamespace(WORDPRESS_NAMESPACE_PREFIX), 
+          rss.getNamespace(CONTENT_NAMESPACE_PREFIX) 
+        );
+        if (item != null) {
+          transfer(item);
+        }
       }
     }
   }
@@ -64,22 +73,22 @@ public class ConversionManager {
                 url,
                 pathBuilder.getFile(),
                 pathBuilder.getFileExtension());
-            
+
           }
         } else {
-
+          System.out.println("Document url was not valid:  " + item.getAttachmentURL() );
         }
 
       } else {
-
+        migrateDocument = new MigrateLocalTextDocument(item.getContent(),pathBuilder.getPath());
       }
-      if(migrateDocument != null) {
+      if (migrateDocument != null) {
         migrateDocument.transfer();
       }
     }
   }
 
-  public URL stringToURL(String urlInput) {
+  private URL stringToURL(String urlInput) {
     URL url = null;
     try {
       url = new URL(urlInput);

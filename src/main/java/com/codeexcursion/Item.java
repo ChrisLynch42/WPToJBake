@@ -20,23 +20,33 @@ import org.jdom2.Namespace;
 public class Item {
 
   private Element item;
-  private Namespace namespace;
+  private Namespace wordpressNamespace;
+  private Namespace contentNamespace;
 
-  public Item(Element item, Namespace namespace) {
+  public Item(Element item, Namespace wordpressNamespace, Namespace contentNamespace) {
     this.item = item;
-    this.namespace = namespace;
+    this.wordpressNamespace = wordpressNamespace;
+    this.contentNamespace = contentNamespace;
   }
 
-  private String getText(String tagName) {
+  private String getText(String tagName, Namespace namespace) {
     String returnValue = "";
     if (item != null) {
       returnValue = item.getChildText(tagName, namespace);
     }
     return returnValue;
   }
+  
+  private String getText(String tagName) {
+    return getText(tagName, wordpressNamespace);
+  }  
 
   public String getAttachmentURL() {
     return getText(ItemElementChildTagNames.ATTACHMENT_URL);
+  }
+  
+  public String getContent() {
+    return getText(ItemElementChildTagNames.ENCODED,contentNamespace);
   }
   
   public String getName() {
@@ -59,19 +69,15 @@ public class Item {
     return getText(ItemElementChildTagNames.STATUS);
   }
   
-  public String getContent() {
-    return StringEscapeUtils.unescapeHtml(getText(ItemElementChildTagNames.CONTENT));
-  }  
-
   public String getAttachedFile() {
     String returnValue = "";
     if (item != null) {
-      List<Element> postMetas = item.getChildren(ItemElementChildTagNames.POST_META, namespace);
+      List<Element> postMetas = item.getChildren(ItemElementChildTagNames.POST_META, wordpressNamespace);
       if (postMetas != null) {
         returnValue = postMetas.
                 stream().
-                filter(postMeta -> PostMetaTypes.ATTACHED_FILE.equals(postMeta.getChildText(ItemElementChildTagNames.POST_META_KEY, namespace))).
-                map(postMeta -> postMeta.getChildText(ItemElementChildTagNames.POST_META_VALUE, namespace)).
+                filter(postMeta -> PostMetaTypes.ATTACHED_FILE.equals(postMeta.getChildText(ItemElementChildTagNames.POST_META_KEY, wordpressNamespace))).
+                map(postMeta -> postMeta.getChildText(ItemElementChildTagNames.POST_META_VALUE, wordpressNamespace)).
                 findFirst().get();
       }
     }

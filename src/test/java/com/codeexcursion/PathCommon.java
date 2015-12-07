@@ -55,9 +55,14 @@ public class PathCommon {
 
     
     Element rss = document.getRootElement();
+
     Namespace wordpressNamespace = rss.getNamespace("wp");
     Assert.assertNotNull("Wordpress namespace is null.", wordpressNamespace);
     Assert.assertEquals("Wordpress namespace is null.", "wp" , wordpressNamespace.getPrefix());
+
+    Namespace contentNamespace = rss.getNamespace("content");
+    Assert.assertNotNull("Content namespace is null.", contentNamespace);
+    Assert.assertEquals("Content namespace is null.", "content" , contentNamespace.getPrefix());
    
     List<Element> channels = rss.getChildren(ConversionManager.CHANNEL);
     Assert.assertNotNull("List of channels was null", channels);
@@ -71,7 +76,7 @@ public class PathCommon {
     
     Optional<Element> firstItem = listOfItems.stream().findFirst();
     Assert.assertTrue("Item element is null!", firstItem.isPresent());    
-    attachmentItem = new Item(firstItem.get(), wordpressNamespace);
+    attachmentItem = new Item(firstItem.get(), wordpressNamespace, contentNamespace);
 /*
     System.out.println("xxxxxxxxxxxxxxxxx");
 //    System.out.println(firstItem.get().getChildText(ItemElementChildTagNames.POST_TYPE, Namespace.getNamespace(ItemElementChildTagNames.WORDPRESS_NAMESPACE)));
@@ -87,6 +92,6 @@ public class PathCommon {
             findFirst();
     
     Assert.assertTrue("Post element item element is null!", postElementItem.isPresent());    
-    postItem = new Item(postElementItem.get(), wordpressNamespace);
+    postItem = new Item(postElementItem.get(), wordpressNamespace, contentNamespace);
   }  
 }
