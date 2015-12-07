@@ -35,15 +35,15 @@ public class PathBuilder {
   }
   
   public File getFile() {
-    return new File(getDirectories() + File.pathSeparator + getFileName());
+    return new File(getDirectories() + File.separator + getFileName());
   }
   
   public Path getPath() {
-    return Paths.get(getDirectories() + File.pathSeparator + getFileName());
+    return Paths.get(getDirectories() + File.separator + getFileName());
   }  
   
   public String getDirectories() {
-    StringJoiner joiner = new StringJoiner(File.pathSeparator);
+    StringJoiner joiner = new StringJoiner(File.separator);
     joiner.add(".");
 
     String type = item.getPostType();
@@ -51,13 +51,13 @@ public class PathBuilder {
       joiner.add(type);
     }
 
-    String pathFileName = item.getAttachedFile();
-    if (pathFileName != null) {
-      String pathFileNameParts[] = pathFileName.split("/");
+    String directoryPath = item.getAttachedFile();
+    if (directoryPath != null) {
+      String directoryPathParts[] = directoryPath.split("/");
 
-      if (pathFileNameParts != null && pathFileNameParts.length > 0) {
-        for(int i = 0; i < pathFileNameParts.length - 2; i++) {
-          joiner.add(pathFileNameParts[i]);
+      if (directoryPathParts != null && directoryPathParts.length > 0) {
+        for(int i = 0; i < directoryPathParts.length - 1; i++) {
+          joiner.add(directoryPathParts[i]);
         }
       }
     }
