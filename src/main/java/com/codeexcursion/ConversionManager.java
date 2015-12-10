@@ -7,8 +7,7 @@ package com.codeexcursion;
 
 import com.codeexcursion.document.DocumentTypes;
 import com.codeexcursion.document.IMigrateDocument;
-import com.codeexcursion.document.MigrateCompressedDocument;
-import com.codeexcursion.document.MigrateImageDocument;
+import com.codeexcursion.document.MigrateAttachmentDocument;
 import com.codeexcursion.document.MigrateLocalTextDocument;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -42,9 +41,9 @@ public class ConversionManager {
     for (Element itemNode : itemNodes) {
       if (itemNode != null) {
         Item item = new Item(
-          itemNode, 
-          rss.getNamespace(WORDPRESS_NAMESPACE_PREFIX), 
-          rss.getNamespace(CONTENT_NAMESPACE_PREFIX) 
+                itemNode,
+                rss.getNamespace(WORDPRESS_NAMESPACE_PREFIX),
+                rss.getNamespace(CONTENT_NAMESPACE_PREFIX)
         );
         if (item != null) {
           transfer(item);
@@ -53,34 +52,29 @@ public class ConversionManager {
     }
   }
 
-  private void transfer(Item item) {
+  public void transfer(Item item) {
+    System.out.println("Conversion manager transfer start");
     PathBuilder pathBuilder = new PathBuilder(item);
 
     if (pathBuilder.makeDirectories()) {
+      System.out.println("Conversion manager transfer directories were made.");
       IMigrateDocument migrateDocument = null;
 
       if (DocumentTypes.ATTACHMENT.equals(item.getPostType())) {
+        System.out.println("Conversion manager item is attachment");
         URL url = stringToURL(item.getAttachmentURL());
         if (url != null) {
-          if (isACompressedFile(item.getAttachedFile())) {
-            migrateDocument
-              = new MigrateCompressedDocument(
-                url,
-                pathBuilder.getFile());
-          } else {
-            migrateDocument
-              = new MigrateImageDocument(
-                url,
-                pathBuilder.getFile(),
-                pathBuilder.getFileExtension());
-
-          }
+          System.out.println("Conversion manager transfer URL is not null");
+          migrateDocument
+                  = new MigrateAttachmentDocument(
+                          url,
+                          pathBuilder.getFile());
         } else {
-          System.out.println("Document url was not valid:  " + item.getAttachmentURL() );
+          System.out.println("Document url was not valid:  " + item.getAttachmentURL());
         }
 
       } else {
-        migrateDocument = new MigrateLocalTextDocument(item.getContent(),pathBuilder.getPath());
+        migrateDocument = new MigrateLocalTextDocument(item.getContent(), pathBuilder.getPath());
       }
       if (migrateDocument != null) {
         migrateDocument.transfer();
@@ -96,14 +90,6 @@ public class ConversionManager {
       System.out.println("Document URL malformed.  \n" + mue.getMessage());
     }
     return url;
-  }
-
-  public boolean isACompressedFile(String inputToTest) {
-    boolean returnValue = false;
-    if (inputToTest != null) {
-      returnValue = DocumentTypes.COMPRESSED_EXTENSIONS.stream().anyMatch(extension -> inputToTest.endsWith(extension));
-    }
-    return returnValue;
   }
 
   public List<Element> getItems() {
