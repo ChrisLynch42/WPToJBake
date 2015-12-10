@@ -1,5 +1,6 @@
 package com.codeexcursion;
 
+import com.codeexcursion.path.AttachmentPathBuilder;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,13 +25,13 @@ import static org.junit.Assert.*;
 /**
  * Unit test for simple App.
  */
-public class PathBuilderTest extends PathCommon {
-  protected PathBuilder pathBuilder;
+public class AttachmentPathBuilderTest extends PathCommon {
+  protected AttachmentPathBuilder pathBuilder;
   
   @Before
   public void prepare() {
     setup();
-    pathBuilder = new PathBuilder(attachmentItem);
+    pathBuilder = new AttachmentPathBuilder(attachmentItem);
   }
 
   @Test 

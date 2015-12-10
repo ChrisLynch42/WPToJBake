@@ -43,6 +43,10 @@ public class ConversionManagerTest extends PathCommon {
   
   @Test 
   public void testTransferHTML() {
+    System.out.println("*****************");
+    System.out.println("*****************");
+    System.out.println("*****************");
+    conversionManager.transfer(postItem);
   }  
   
 }
