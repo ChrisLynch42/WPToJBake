@@ -5,6 +5,7 @@
  */
 package com.codeexcursion;
 
+import com.codeexcursion.path.AttachmentPathBuilder;
 import com.codeexcursion.document.DocumentTypes;
 import com.codeexcursion.document.IMigrateDocument;
 import com.codeexcursion.document.MigrateAttachmentDocument;
@@ -54,7 +55,7 @@ public class ConversionManager {
 
   public void transfer(Item item) {
     System.out.println("Conversion manager transfer start");
-    PathBuilder pathBuilder = new PathBuilder(item);
+    AttachmentPathBuilder pathBuilder = new AttachmentPathBuilder(item);
 
     if (pathBuilder.makeDirectories()) {
       System.out.println("Conversion manager transfer directories were made.");

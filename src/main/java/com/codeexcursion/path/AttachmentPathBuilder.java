@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.codeexcursion;
+package com.codeexcursion.path;
 
+import com.codeexcursion.Item;
 import com.codeexcursion.document.DocumentTypes;
 import java.io.File;
 import java.nio.file.Path;
@@ -16,12 +17,12 @@ import org.jdom2.Element;
  *
  * @author lynchcs
  */
-public class PathBuilder {
+public class AttachmentPathBuilder implements IPathBuilder {
   public static final String EXTENSION_SEPERATOR = ".";
   
   private Item item;
 
-  public PathBuilder(Item item) {
+  public AttachmentPathBuilder(Item item) {
     this.item = item;
   }
     
@@ -107,4 +108,11 @@ public class PathBuilder {
     return returnValue;
   }  
 
+  public Item getItem() {
+    return item;
+  }
+
+  
+  
+  
 }
