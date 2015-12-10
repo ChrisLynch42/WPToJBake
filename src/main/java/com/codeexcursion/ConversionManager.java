@@ -10,6 +10,8 @@ import com.codeexcursion.document.DocumentTypes;
 import com.codeexcursion.document.IMigrateDocument;
 import com.codeexcursion.document.MigrateAttachmentDocument;
 import com.codeexcursion.document.MigrateLocalTextDocument;
+import com.codeexcursion.path.HTMLPathBuilder;
+import com.codeexcursion.path.IPathBuilder;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
@@ -55,7 +57,14 @@ public class ConversionManager {
 
   public void transfer(Item item) {
     System.out.println("Conversion manager transfer start");
-    AttachmentPathBuilder pathBuilder = new AttachmentPathBuilder(item);
+    IPathBuilder pathBuilder = null;
+
+    if (DocumentTypes.ATTACHMENT.equals(item.getPostType())) {
+      pathBuilder = new AttachmentPathBuilder(item);
+    } else {
+      pathBuilder = new HTMLPathBuilder(item);
+
+    }
 
     if (pathBuilder.makeDirectories()) {
       System.out.println("Conversion manager transfer directories were made.");
@@ -75,6 +84,7 @@ public class ConversionManager {
         }
 
       } else {
+        System.out.println("Conversion manager item is post/page");
         migrateDocument = new MigrateLocalTextDocument(item.getContent(), pathBuilder.getPath());
       }
       if (migrateDocument != null) {

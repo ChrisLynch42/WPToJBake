@@ -48,6 +48,11 @@ public class Item {
   public String getContent() {
     return getText(ItemElementChildTagNames.ENCODED,contentNamespace);
   }
+
+  public String getLink() {
+    return item.getChildText(ItemElementChildTagNames.LINK);
+  }
+
   
   public String getName() {
     return getText(ItemElementChildTagNames.NAME);

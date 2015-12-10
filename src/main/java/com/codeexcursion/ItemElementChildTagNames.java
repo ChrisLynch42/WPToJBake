@@ -14,6 +14,7 @@ import org.jdom2.Namespace;
 public class ItemElementChildTagNames {
   
   public static final String TITLE = "title";
+  public static final String LINK = "link";
   public static final String STATUS = "status";
   public static final String POST_TYPE = "post_type";
   public static final String POST_DATE = "post_date";
