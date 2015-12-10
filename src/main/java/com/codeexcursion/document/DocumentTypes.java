@@ -15,7 +15,6 @@ import java.util.List;
  */
 public class DocumentTypes {
   public static final String ATTACHMENT = "attachment";
-  public static final List<String> COMPRESSED_EXTENSIONS = Arrays.asList("zip","gz","tar");
   public static final String POST = "post";
   public static final String PAGE = "page";
   

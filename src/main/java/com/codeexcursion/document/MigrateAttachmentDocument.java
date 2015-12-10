@@ -18,14 +18,14 @@ import javax.imageio.ImageIO;
  *
  * @author lynchcs
  */
-public class MigrateCompressedDocument implements IMigrateDocument {
+public class MigrateAttachmentDocument implements IMigrateDocument {
 
   private URL url;
   private File destination;
   private String fileType;
   private BufferedImage image;
 
-  public MigrateCompressedDocument(
+  public MigrateAttachmentDocument(
           URL url,
           File destination) {
     this.url = url;
