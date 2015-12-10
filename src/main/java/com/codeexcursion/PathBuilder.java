@@ -26,7 +26,7 @@ public class PathBuilder {
   }
     
   public boolean makeDirectories() {
-    boolean returnValue = false;
+    boolean returnValue = true;
     File path = new File(getDirectories());
     if(!path.exists()) {
       returnValue = path.mkdirs();
