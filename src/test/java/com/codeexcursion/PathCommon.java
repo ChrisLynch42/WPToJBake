@@ -29,6 +29,7 @@ public class PathCommon {
   protected Document document;
   protected Item attachmentItem;
   protected Item postItem;
+  protected Element rss;
   
   
   public Document getDocument(File inputFile) {
@@ -54,7 +55,7 @@ public class PathCommon {
     document = getDocument(testFile);
 
     
-    Element rss = document.getRootElement();
+    rss = document.getRootElement();
 
     Namespace wordpressNamespace = rss.getNamespace("wp");
     Assert.assertNotNull("Wordpress namespace is null.", wordpressNamespace);
