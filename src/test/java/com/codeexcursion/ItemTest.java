@@ -56,7 +56,7 @@ public class ItemTest extends PathCommon {
   @Test 
   public void testContent() {
     String content = postItem.getContent();
-    Assert.assertNotNull("Content were null.", content);    
+    Assert.assertNotNull("Content was null.", content);    
     
     String testValue = "The last part is execute the authorization check in a controller";
     Assert.assertTrue("Content did not contain:  " + testValue + "\n\n" + content, content.contains(testValue));    
