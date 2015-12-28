@@ -9,7 +9,7 @@ import com.codeexcursion.path.AttachmentPathBuilder;
 import com.codeexcursion.document.DocumentTypes;
 import com.codeexcursion.document.IMigrateDocument;
 import com.codeexcursion.document.MigrateAttachmentDocument;
-import com.codeexcursion.document.MigrateLocalTextDocument;
+import com.codeexcursion.document.MigrateTextDocument;
 import com.codeexcursion.path.HTMLPathBuilder;
 import com.codeexcursion.path.IPathBuilder;
 import java.net.MalformedURLException;
@@ -85,7 +85,7 @@ public class ConversionManager {
 
       } else {
         System.out.println("Conversion manager item is post/page");
-        migrateDocument = new MigrateLocalTextDocument(item.getContent(), pathBuilder.getPath());
+        migrateDocument = new MigrateTextDocument(item, pathBuilder.getPath());
       }
       if (migrateDocument != null) {
         migrateDocument.transfer();
