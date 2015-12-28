@@ -5,14 +5,12 @@
  */
 package com.codeexcursion.document;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
-import javax.imageio.ImageIO;
 
 /**
  *
@@ -23,7 +21,6 @@ public class MigrateAttachmentDocument implements IMigrateDocument {
   private URL url;
   private File destination;
   private String fileType;
-  private BufferedImage image;
 
   public MigrateAttachmentDocument(
           URL url,
