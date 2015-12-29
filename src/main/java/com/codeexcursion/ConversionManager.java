@@ -56,7 +56,6 @@ public class ConversionManager {
   }
 
   public void transfer(Item item) {
-    System.out.println("Conversion manager transfer start");
     IPathBuilder pathBuilder = null;
 
     if (DocumentTypes.ATTACHMENT.equals(item.getPostType())) {
@@ -67,14 +66,11 @@ public class ConversionManager {
     }
 
     if (pathBuilder.makeDirectories()) {
-      System.out.println("Conversion manager transfer directories were made.");
       IMigrateDocument migrateDocument = null;
 
       if (DocumentTypes.ATTACHMENT.equals(item.getPostType())) {
-        System.out.println("Conversion manager item is attachment");
         URL url = stringToURL(item.getAttachmentURL());
         if (url != null) {
-          System.out.println("Conversion manager transfer URL is not null");
           migrateDocument
                   = new MigrateAttachmentDocument(
                           url,
@@ -84,7 +80,6 @@ public class ConversionManager {
         }
 
       } else {
-        System.out.println("Conversion manager item is post/page");
         migrateDocument = new MigrateTextDocument(item, pathBuilder.getPath());
       }
       if (migrateDocument != null) {
