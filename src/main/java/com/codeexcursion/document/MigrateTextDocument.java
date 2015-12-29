@@ -39,12 +39,14 @@ public class MigrateTextDocument implements IMigrateDocument {
     StringBuilder content = new StringBuilder();
     
     String tags = String.join(", ", document.getTags());
+    String categories = String.join(", ", document.getCategories());
     
-    appendKeyValue(content, JBakeConstants.HEADER__TYPE, document.getPostType());
-    appendKeyValue(content, JBakeConstants.HEADER__TITLE, document.getTitle());
-    appendKeyValue(content, JBakeConstants.HEADER__DATE, document.getPostDate());
-    appendKeyValue(content, JBakeConstants.HEADER__TAGS, tags);
-    appendKeyValue(content, JBakeConstants.HEADER__STATUS, document.getStatus());
+    appendKeyValue(content, JBakeConstants.HEADER_TYPE, document.getPostType());
+    appendKeyValue(content, JBakeConstants.HEADER_TITLE, document.getTitle());
+    appendKeyValue(content, JBakeConstants.HEADER_DATE, document.getPostDate());
+    appendKeyValue(content, JBakeConstants.HEADER_TAGS, tags);
+    appendKeyValue(content, JBakeConstants.HEADER_STATUS, document.getStatus());
+    appendKeyValue(content, JBakeConstants.HEADER_CATEGORY, categories);
     appendLine(content,JBakeConstants.HEADER_DELIMITER);
     appendLine(content,document.getContent());
 

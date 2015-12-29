@@ -12,10 +12,11 @@ package com.codeexcursion.document;
 public class JBakeConstants {
   public final static String HEADER_VALUE_SEPERATOR="=";
   public final static String HEADER_DELIMITER="~~~~~~";
-  public final static String HEADER__TYPE="type";
-  public final static String HEADER__TITLE="title";
-  public final static String HEADER__TAGS="tags";
-  public final static String HEADER__STATUS="status";
-  public final static String HEADER__DATE="date";
+  public final static String HEADER_TYPE="type";
+  public final static String HEADER_TITLE="title";
+  public final static String HEADER_TAGS="tags";
+  public final static String HEADER_CATEGORY="category";
+  public final static String HEADER_STATUS="status";
+  public final static String HEADER_DATE="date";
   
 }
