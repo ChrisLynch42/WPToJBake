@@ -19,6 +19,7 @@ import org.jdom2.Element;
  */
 public class HTMLPathBuilder implements IPathBuilder {
   public static final String EXTENSION_SEPERATOR = ".";
+  public static final String START_PATH = "content";
   
   private Item item;
 
@@ -46,6 +47,7 @@ public class HTMLPathBuilder implements IPathBuilder {
   public String getDirectories() {
     StringJoiner joiner = new StringJoiner(File.separator);
     joiner.add(".");
+    joiner.add(START_PATH);
 
     String type = item.getPostType();
     if (type != null) {
