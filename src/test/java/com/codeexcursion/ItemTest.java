@@ -54,12 +54,21 @@ public class ItemTest extends PathCommon {
   }
   
   @Test 
-  public void testContent() {
+  public void testGetContent() {
     String content = postItem.getContent();
     Assert.assertNotNull("Content was null.", content);    
     
     String testValue = "The last part is execute the authorization check in a controller";
     Assert.assertTrue("Content did not contain:  " + testValue + "\n\n" + content, content.contains(testValue));    
+  }
+
+  @Test 
+  public void testGetTitle() {
+    String title = postItem.getTitle();
+    Assert.assertNotNull("Title was null.", title);    
+    
+    String testValue = "Ruby on Rails Authentication and Authorization Part 5";
+    Assert.assertTrue("Title did not contain:  " + testValue + "\n\n" + title, title.contains(testValue));    
   }  
   
   

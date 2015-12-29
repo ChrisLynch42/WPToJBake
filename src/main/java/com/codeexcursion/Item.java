@@ -67,7 +67,7 @@ public class Item {
   }
 
   public String getTitle() {
-    return getText(ItemElementChildTagNames.TITLE);
+    return item.getChildText(ItemElementChildTagNames.TITLE);
   }
 
   public String getStatus() {
