@@ -35,18 +35,14 @@ public class ConversionManagerTest extends PathCommon {
 
   @Test 
   public void testTransferAttachment() {
-    System.out.println("*****************");
-    System.out.println("*****************");
-    System.out.println("*****************");
     conversionManager.transfer(attachmentItem);
   }
   
   @Test 
   public void testTransferHTML() {
-    System.out.println("*****************");
-    System.out.println("*****************");
-    System.out.println("*****************");
     conversionManager.transfer(postItem);
   }  
+  
+
   
 }
