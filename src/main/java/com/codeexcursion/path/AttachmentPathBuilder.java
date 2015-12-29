@@ -19,6 +19,7 @@ import org.jdom2.Element;
  */
 public class AttachmentPathBuilder implements IPathBuilder {
   public static final String EXTENSION_SEPERATOR = ".";
+  private final String startFolder = "assets";
   
   private Item item;
 
@@ -47,10 +48,7 @@ public class AttachmentPathBuilder implements IPathBuilder {
     StringJoiner joiner = new StringJoiner(File.separator);
     joiner.add(".");
 
-    String type = item.getPostType();
-    if (type != null) {
-      joiner.add(type);
-    }
+    joiner.add(startFolder);
 
     String directoryPath = item.getAttachedFile();
     if (directoryPath != null) {
