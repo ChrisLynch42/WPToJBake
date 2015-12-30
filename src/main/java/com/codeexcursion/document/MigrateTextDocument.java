@@ -27,6 +27,10 @@ public class MigrateTextDocument implements IMigrateDocument {
   private URL url;
   private Path destination;
   private Item document;  
+  private final String WP_UPLOAD_FOLDER = "/wp-content/uploads";
+  private final String WP_URL = "http://www.codeexcursion.com/wp-content/uploads";
+  private final String WP_CAPTION_OPEN = "\\[caption.*\\\"\\]";
+  private final String WP_CAPTION_CLOSE = "\\[/caption\\]";
 
   public MigrateTextDocument(
           Item document,
@@ -48,7 +52,12 @@ public class MigrateTextDocument implements IMigrateDocument {
     appendKeyValue(content, JBakeConstants.HEADER_STATUS, document.getStatus());
     appendKeyValue(content, JBakeConstants.HEADER_CATEGORY, categories);
     appendLine(content,JBakeConstants.HEADER_DELIMITER);
-    appendLine(content,document.getContent());
+    appendLine(content,
+            document.getContent().
+                    replaceAll(this.WP_URL, "").
+                    replaceAll(this.WP_UPLOAD_FOLDER, "").
+                    replaceAll(this.WP_CAPTION_OPEN,"").
+                    replaceAll(this.WP_CAPTION_CLOSE,""));
 
     try {
       Files.write(destination, content.toString().getBytes());
