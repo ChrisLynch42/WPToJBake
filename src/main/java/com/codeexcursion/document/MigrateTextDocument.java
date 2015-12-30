@@ -56,8 +56,8 @@ public class MigrateTextDocument implements IMigrateDocument {
             document.getContent().
                     replaceAll(this.WP_URL, "").
                     replaceAll(this.WP_UPLOAD_FOLDER, "").
-                    replaceAll(this.WP_CAPTION_OPEN,"").
-                    replaceAll(this.WP_CAPTION_CLOSE,""));
+                    replaceAll("\\s+<pre", "\n\n<pre").
+                    replaceAll("\\s+<\\/pre\\>", "\n<\\/pre>\n"));
 
     try {
       Files.write(destination, content.toString().getBytes());
