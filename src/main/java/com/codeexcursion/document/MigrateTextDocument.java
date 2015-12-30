@@ -31,6 +31,7 @@ public class MigrateTextDocument implements IMigrateDocument {
   private final String WP_URL = "http://www.codeexcursion.com/wp-content/uploads";
   private final String WP_CAPTION_OPEN = "\\[caption.*\\\"\\]";
   private final String WP_CAPTION_CLOSE = "\\[/caption\\]";
+  private final String WP_POSTS_BY_TAG = "\\[posts-by-tag.*\\\"\\]";
 
   public MigrateTextDocument(
           Item document,
@@ -56,8 +57,18 @@ public class MigrateTextDocument implements IMigrateDocument {
             document.getContent().
                     replaceAll(this.WP_URL, "").
                     replaceAll(this.WP_UPLOAD_FOLDER, "").
-                    replaceAll("\\s+<pre", "\n\n<pre").
-                    replaceAll("\\s+<\\/pre\\>", "\n<\\/pre>\n"));
+                    replaceAll("\\s+<pre(.*)\\>", "\n\n<pre$1>\n\n").
+                    replaceAll("\\s+<\\/pre\\>", "\n<\\/pre>\n").
+                    replaceAll("\\s+<div", "\n\n<div").
+                    replaceAll("\\s+<\\/div\\>", "\n<\\/div>\n").
+                    replaceAll("\\s+<table", "\n\n<table").
+                    replaceAll("\\s+<\\/table\\>", "\n<\\/table>\n").
+                    replaceAll("\\s+<p", "\n\n<p").
+                    replaceAll("\\s+<\\/p\\>", "\n<\\/p>\n").
+                    replaceAll(this.WP_POSTS_BY_TAG, "").
+                    replaceAll("\\[caption.*caption=\\\"(.*)\\\".*\\](.*)\\[\\/caption\\]", "<figure>$2<figcaption>$1</figcaption></figure>").
+                    replaceAll("\\[caption.*\\](.*)<\\/a\\>(.*)\\[\\/caption\\]", "<figure>$1</a><figcaption>$2</figcaption></figure>").
+                    replaceAll("<figure\\>.*<img(.*)src=\\\"(.*)\\\"(.*)\\>(.*)<\\/figure>", "<figure><a href=\"$2\"><img$1src=\"$2\"$3/></a>$4</figure>"));
 
     try {
       Files.write(destination, content.toString().getBytes());
@@ -65,6 +76,8 @@ public class MigrateTextDocument implements IMigrateDocument {
       System.out.println("Failed to write local test document.  " + destination + "  -- " + ioe.getMessage());
     }
   }
+  
+  
   
   private void appendKeyValue(StringBuilder content, String key, String value) {
     content.append(key);
