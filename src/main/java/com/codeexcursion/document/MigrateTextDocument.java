@@ -68,7 +68,7 @@ public class MigrateTextDocument implements IMigrateDocument {
                     replaceAll(this.WP_POSTS_BY_TAG, "").
                     replaceAll("\\[caption.*caption=\\\"(.*)\\\".*\\](.*)\\[\\/caption\\]", "<figure>$2<figcaption>$1</figcaption></figure>").
                     replaceAll("\\[caption.*\\](.*)<\\/a\\>(.*)\\[\\/caption\\]", "<figure>$1</a><figcaption>$2</figcaption></figure>").
-                    replaceAll("<figure\\>.*<img(.*)src=\\\"(.*)\\\"(.*)\\>(.*)<\\/figure>", "<figure><a href=\"$2\"><img$1src=\"$2\"$3/></a>$4</figure>"));
+                    replaceAll("<figure\\>.*<img(.*)src=\\\"(.*)\\\"(.*)\\>.*</a>(.*)<\\/figure>", "<figure><a href=\"$2\"><img$1src=\"$2\"$3></a>$4</figure>"));
 
     try {
       Files.write(destination, content.toString().getBytes());
