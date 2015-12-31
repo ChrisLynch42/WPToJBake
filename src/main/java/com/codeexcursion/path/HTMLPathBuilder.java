@@ -93,7 +93,7 @@ public class HTMLPathBuilder implements IPathBuilder {
   
   public String getOtherFileName() {
     String returnValue="";
-    returnValue = item.getName() + ".html";
+    returnValue = item.getName() + ".md";
     return returnValue;
   } 
 
