@@ -71,7 +71,7 @@ public class Item {
   }
 
   public String getStatus() {
-    return getText(ItemElementChildTagNames.STATUS);
+    return getText(ItemElementChildTagNames.STATUS).replaceAll("publish", "published");
   }
   
   public String getAttachedFile() {
